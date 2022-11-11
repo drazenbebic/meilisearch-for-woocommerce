@@ -2,7 +2,7 @@
 
 namespace MeilisearchForWooCommerce\Integrations;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 class WooCommerce {
 
@@ -12,6 +12,7 @@ class WooCommerce {
 
 	private function bootstrap() {
 		new WooCommerce\ProductData();
+		new WooCommerce\Settings();
 	}
 
 }
