@@ -1,2 +1,9 @@
+# JetBrains IDE
 .idea
+
+# Composer
 vendor
+
+# Compiled CSS files
+assets/admin/css/*.css
+assets/admin/css/*.css.map
