@@ -31,7 +31,8 @@ class Assets {
 		);
 
 		if ( in_array( $screen_id, array(
-			'product'
+			'product',
+			'tools_page_meilisearch'
 		) ) ) {
 			wp_enqueue_style( 'msfwc_admin_css' );
 		}

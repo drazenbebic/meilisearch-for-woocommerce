@@ -11,6 +11,7 @@ class WooCommerce {
 	}
 
 	private function bootstrap() {
+		new WooCommerce\Admin\Menu();
 		new WooCommerce\Product();
 		new WooCommerce\ProductData();
 		new WooCommerce\Settings();

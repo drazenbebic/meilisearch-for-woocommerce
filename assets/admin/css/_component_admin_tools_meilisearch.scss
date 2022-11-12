@@ -1,0 +1,16 @@
+.msfwc-tools-meilisearch {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    .tile {
+      margin-top: 20px;
+      padding: .7em 2em 1em;
+      border: 1px solid #c3c4c7;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+      background: #fff;
+      box-sizing: border-box;
+    }
+  }
+}
