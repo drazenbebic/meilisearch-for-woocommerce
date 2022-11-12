@@ -47,17 +47,17 @@ class Settings {
 
 	private function get_settings(): array {
 		return apply_filters( 'msfwc_settings_tab_meilisearch', array(
-			'product_sync'             => array(
-				'id'   => 'msfwc_setting_product_sync_title',
-				'name' => __( 'Product synchronization', 'meilisearch-for-woocommerce' ),
+			'sync'                     => array(
+				'id'   => 'msfwc_setting_sync_title',
+				'name' => __( 'Synchronization', 'meilisearch-for-woocommerce' ),
 				'type' => 'title',
-				'desc' => __( 'Define plugin behavior specific to product synchronization.', 'meilisearch-for-woocommerce' )
+				'desc' => __( 'These settings define how the plugin will keep the product data synchronized with Meilisearch.', 'meilisearch-for-woocommerce' )
 			),
-			'sync_on_product_change'   => array(
-				'id'   => 'msfwc_setting_meilisearch_sync_on_product_change',
-				'name' => __( 'Keep products in sync', 'meilisearch-for-woocommerce' ),
+			'on_product_edit'          => array(
+				'id'   => 'msfwc_setting_sync_on_product_edit',
+				'name' => __( 'Sync on product edit', 'meilisearch-for-woocommerce' ),
 				'type' => 'checkbox',
-				'desc' => __( 'Update the Meilisearch document when the product updates.', 'meilisearch-for-woocommerce' ),
+				'desc' => __( 'Update the Meilisearch document when editing a product.', 'meilisearch-for-woocommerce' ),
 			),
 			'product_sync_section_end' => array(
 				'id'   => 'msfwc_setting_product_sync_sectionend',
