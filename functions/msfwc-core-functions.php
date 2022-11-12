@@ -236,8 +236,13 @@ function msfwc_map_product_fields( WC_Product $product ): array {
 					$data[ $field['value'] ] = $product_data[ $field['value'] ] ?: null;
 				}
 				break;
+			case 'price':
+				$price                   = floatval( $product_data[ $field['value'] ] );
+				$data[ $field['value'] ] = $price;
+				break;
 			case 'image':
-				$data['image'] = wp_get_attachment_image_url( $product->get_image_id() );
+				$image         = wp_get_attachment_image_url( $product->get_image_id() );
+				$data['image'] = $image ?: null;
 				break;
 		}
 	}

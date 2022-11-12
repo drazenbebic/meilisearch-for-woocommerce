@@ -2,6 +2,8 @@
 
 namespace MeilisearchForWooCommerce\Admin;
 
+use MeilisearchForWooCommerce\Enums\IndexEnum;
+
 defined( 'ABSPATH' ) || exit;
 
 class Controller {
@@ -34,7 +36,11 @@ class Controller {
 			), 404 );
 		}
 
-		$document = msfwc()->api()->upsert_document( 'products', msfwc_map_product_fields( $product ) );
+		$document = msfwc()->api()->upsert_documents(
+			IndexEnum::WC_PRODUCTS,
+			array(
+				msfwc_map_product_fields( $product )
+			) );
 
 		if ( is_wp_error( $document ) ) {
 			wp_send_json( array(

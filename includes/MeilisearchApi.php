@@ -18,11 +18,11 @@ class MeilisearchApi {
 	protected Client $client;
 
 	public function __construct() {
-		$token = get_option( 'msfwc_meilisearch_api_token', 'FOOBAR123' );
+		$token = msfwc_get_meilisearch_instance_api_key();
 
 		$this->client = new Client(
 			array(
-				'base_uri' => get_option( 'msfwc_meilisearch_base_uri', 'http://host.docker.internal:7700' ),
+				'base_uri' => msfwc_get_meilisearch_instance_url(),
 				'headers'  => array(
 					'Authorization' => "Bearer $token"
 				)
@@ -100,7 +100,7 @@ class MeilisearchApi {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function upsert_document( string $index, array $data ) {
+	public function upsert_documents( string $index, array $data ) {
 		try {
 			$response = $this->client->post( "/indexes/$index/documents", array(
 				RequestOptions::JSON => $data

@@ -1,12 +1,58 @@
 <?php
 
 /**
- * Returns the setting for product downloads.
+ * Returns the Meilisearch instance URL.
+ *
+ * @return string|null
+ */
+function msfwc_get_meilisearch_instance_url(): ?string {
+	return get_option( 'msfwc_setting_meilisearch_instance_url', null );
+}
+
+/**
+ * Returns the Meilisearch instance API key.
+ *
+ * @return string|null
+ */
+function msfwc_get_meilisearch_instance_api_key(): ?string {
+	return get_option( 'msfwc_setting_meilisearch_instance_api_key', null );
+}
+
+/**
+ * Returns a bool on whether the Meilisearch instance is fully configured.
  *
  * @return bool
  */
-function msfwc_sync_on_product_edit(): bool {
-	return get_option( 'msfwc_setting_sync_on_product_edit', false ) === 'yes';
+function msfwc_is_meilisearch_instance_configured(): bool {
+	return msfwc_get_meilisearch_instance_url() && msfwc_get_meilisearch_instance_api_key();
+}
+
+/**
+ * Returns a bool for whether a product should be synced when it's created.
+ *
+ * @return bool
+ */
+function msfwc_product_sync_on_create(): bool {
+	return get_option( 'msfwc_setting_product_sync_on_create', false ) === 'yes';
+}
+
+/**
+ * Returns a bool for whether a product should be synced when it's updated.
+ *
+ * @return bool
+ */
+function msfwc_product_sync_on_update(): bool {
+	return get_option( 'msfwc_setting_product_sync_on_update', false ) === 'yes';
+}
+
+/**
+ *
+ * Returns a bool for whether a product should be synced when it's deleted.
+ *
+ * @return bool
+ */
+function msfwc_product_sync_on_delete(): bool {
+	return get_option( 'msfwc_setting_product_sync_on_delete', false ) === 'yes';
 }
 
 /**
@@ -33,8 +79,12 @@ function msfwc_get_product_sync_fields(): array {
 			'value' => 'sku'
 		),
 		array(
-			'type'  => 'property',
+			'type'  => 'price',
 			'value' => 'regular_price'
+		),
+		array(
+			'type'  => 'price',
+			'value' => 'sale_price'
 		),
 		array(
 			'type' => 'image'

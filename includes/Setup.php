@@ -55,7 +55,11 @@ class Setup {
 	 */
 	private static function get_default_settings(): array {
 		return apply_filters( 'msfwc_default_settings', array(
-			'msfwc_setting_sync_on_product_edit' => 'yes',
+			'msfwc_setting_meilisearch_instance_url'     => null,
+			'msfwc_setting_meilisearch_instance_api_key' => null,
+			'msfwc_setting_product_sync_on_create'       => 'yes',
+			'msfwc_setting_product_sync_on_update'       => 'yes',
+			'msfwc_setting_product_sync_on_delete'       => 'yes'
 		) );
 	}
 
