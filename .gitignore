@@ -1,9 +1,16 @@
+# Environment
+.env
+
 # JetBrains IDE
 .idea
 
-# Composer
-vendor
+# WordPress files
+wp-app/
 
-# Compiled CSS files
-assets/admin/css/*.css
-assets/admin/css/*.css.map
+# Plugin files
+!wp-app/wp-content/plugins/meilisearch-for-woocommerce/**
+
+# Plugin files which need to be excluded
+wp-app/wp-content/plugins/meilisearch-for-woocommerce/assets/admin/css/*.css
+wp-app/wp-content/plugins/meilisearch-for-woocommerce/assets/admin/css/*.css.map
+wp-app/wp-content/plugins/meilisearch-for-woocommerce/vendor
