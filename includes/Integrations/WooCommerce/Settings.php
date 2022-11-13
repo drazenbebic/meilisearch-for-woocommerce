@@ -64,10 +64,27 @@ class Settings {
 			'api_key'                          => array(
 				'id'   => 'msfwc_setting_meilisearch_instance_api_key',
 				'name' => __( 'API Key', 'meilisearch-for-woocommerce' ),
-				'type' => 'text',
+				'type' => 'password',
 				'desc' => __( 'API key of your Meilisearch instance.', 'meilisearch-for-woocommerce' ),
 			),
 			'meilisearch_instance_section_end' => array(
+				'id'   => 'msfwc_setting_meilisearch_instance_sectionend',
+				'type' => 'sectionend',
+			),
+			// indexes
+			'index'                            => array(
+				'id'   => 'msfwc_setting_product_sync_title',
+				'name' => __( 'Indexes', 'meilisearch-for-woocommerce' ),
+				'type' => 'title',
+				'desc' => __( 'Define the names of your Meilisearch indexes', 'meilisearch-for-woocommerce' )
+			),
+			'products'                         => array(
+				'id'   => 'msfwc_setting_index_products',
+				'name' => __( 'Products', 'meilisearch-for-woocommerce' ),
+				'type' => 'text',
+				'desc' => __( 'Name of the index containing the product data.', 'meilisearch-for-woocommerce' )
+			),
+			'index_section_end'                => array(
 				'id'   => 'msfwc_setting_meilisearch_instance_sectionend',
 				'type' => 'sectionend',
 			),

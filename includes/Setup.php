@@ -8,6 +8,8 @@ defined( 'ABSPATH' ) || exit;
 
 class Setup {
 
+	const PRODUCTS_INDEX_DEFAULT = 'products';
+
 	/**
 	 * Activation script
 	 *
@@ -57,6 +59,7 @@ class Setup {
 		return apply_filters( 'msfwc_default_settings', array(
 			'msfwc_setting_meilisearch_instance_url'     => null,
 			'msfwc_setting_meilisearch_instance_api_key' => null,
+			'msfwc_setting_index_products'               => self::PRODUCTS_INDEX_DEFAULT,
 			'msfwc_setting_product_sync_on_create'       => 'yes',
 			'msfwc_setting_product_sync_on_update'       => 'yes',
 			'msfwc_setting_product_sync_on_delete'       => 'yes'

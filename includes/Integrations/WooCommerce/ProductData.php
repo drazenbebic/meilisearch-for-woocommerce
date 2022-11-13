@@ -91,7 +91,7 @@ class ProductData {
 
 		if ( $screen->action === '' ) {
 			$document = meili()->api()->get_document(
-				'products',
+				msfwc_get_product_index_name(),
 				$post->ID
 			);
 

@@ -2,8 +2,6 @@
 
 namespace MeilisearchForWooCommerce\Admin;
 
-use MeilisearchForWooCommerce\Enums\IndexEnum;
-
 defined( 'ABSPATH' ) || exit;
 
 class Controller {
@@ -37,7 +35,7 @@ class Controller {
 		}
 
 		$document = meili()->api()->upsert_documents(
-			IndexEnum::WC_PRODUCTS,
+			msfwc_get_product_index_name(),
 			array(
 				msfwc_map_product_fields( $product )
 			) );

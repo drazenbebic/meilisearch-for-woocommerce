@@ -2,8 +2,6 @@
 
 namespace MeilisearchForWooCommerce\Integrations\WooCommerce\Admin;
 
-use MeilisearchForWooCommerce\Enums\IndexEnum;
-
 defined( 'ABSPATH' ) || exit;
 
 class Controller {
@@ -43,7 +41,7 @@ class Controller {
 
 		$documents = meili()
 			->api()
-			->delete_all_documents( IndexEnum::WC_PRODUCTS );
+			->delete_all_documents( msfwc_get_product_index_name() );
 
 		if ( is_wp_error( $documents ) ) {
 			// TODO: Add error notification

@@ -2,7 +2,6 @@
 
 namespace MeilisearchForWooCommerce\Integrations\WooCommerce;
 
-use MeilisearchForWooCommerce\Enums\IndexEnum;
 use WP_Post;
 
 defined( 'ABSPATH' ) || exit;
@@ -39,7 +38,6 @@ class Product {
 	) {
 		if ( ! $update && $post->post_status !== 'auto-draft' ) {
 			msfwc_var_dump_pre( $post );
-			msfwc_var_dump_pre( 'nao', true );
 		}
 
 		// Skip if this is an update and sync on update is off.
@@ -50,7 +48,6 @@ class Product {
 		// Skip if this is a new product and sync on create is off.
 		if ( $post->post_status === 'publish' && ! $update && ! msfwc_product_sync_on_create() ) {
 			msfwc_var_dump_pre( $post->post_status );
-			exit( 'cyka blyat' );
 
 			return;
 		}
@@ -64,7 +61,7 @@ class Product {
 		$document = meili()
 			->api()
 			->upsert_documents(
-				IndexEnum::WC_PRODUCTS,
+				msfwc_get_product_index_name(),
 				array(
 					msfwc_map_product_fields( $product )
 				)
@@ -77,8 +74,8 @@ class Product {
 		// TODO: Add success notification
 
 		do_action(
-			'msfwc_event_post_document_upsert',
-			IndexEnum::WC_PRODUCTS,
+			'meili_event_post_document_upsert',
+			msfwc_get_product_index_name(),
 			$product,
 			$document
 		);

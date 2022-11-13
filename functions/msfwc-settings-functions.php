@@ -1,5 +1,7 @@
 <?php
 
+use MeilisearchForWooCommerce\Setup;
+
 /**
  * Returns the Meilisearch instance URL.
  *
@@ -16,6 +18,15 @@ function msfwc_get_meilisearch_instance_url(): ?string {
  */
 function msfwc_get_meilisearch_instance_api_key(): ?string {
 	return get_option( 'msfwc_setting_meilisearch_instance_api_key', null );
+}
+
+/**
+ * Returns the Meilisearch products index name.
+ *
+ * @return string
+ */
+function msfwc_get_product_index_name(): string {
+	return get_option( 'msfwc_setting_index_products', Setup::PRODUCTS_INDEX_DEFAULT );
 }
 
 /**
