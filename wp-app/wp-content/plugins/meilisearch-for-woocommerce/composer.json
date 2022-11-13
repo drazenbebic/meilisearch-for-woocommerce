@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "MeilisearchForWooCommerce\\": "includes/"
+    }
+  },
+  "require": {
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.5.8"
+  }
+}

@@ -1,16 +1,24 @@
-# Environment
-.env
+# Everything
+*
 
-# JetBrains IDE
-.idea
+# Root directory
+!.gitignore
+!.env.example
+!README.md
+!docker-compose.yml
 
-# WordPress files
-wp-app/
+# PHP config
+!config
+!config/php.conf.ini
 
-# Plugin files
+# Plugin folder
+!wp-app
+!wp-app/wp-content/
+!wp-app/wp-content/plugins
+!wp-app/wp-content/plugins/meilisearch-for-woocommerce
 !wp-app/wp-content/plugins/meilisearch-for-woocommerce/**
 
-# Plugin files which need to be excluded
+# Plugin folder exceptions
+wp-app/wp-content/plugins/meilisearch-for-woocommerce/vendor
 wp-app/wp-content/plugins/meilisearch-for-woocommerce/assets/admin/css/*.css
 wp-app/wp-content/plugins/meilisearch-for-woocommerce/assets/admin/css/*.css.map
-wp-app/wp-content/plugins/meilisearch-for-woocommerce/vendor
