@@ -27,6 +27,8 @@ class Controller {
 	 * @return void
 	 */
 	public function admin_post_sync_all_products() {
+		check_admin_referer( 'meili_sync_all_products' );
+
 		// TODO: Implement the method
 		msfwc_var_dump_pre( $_POST );
 	}
