@@ -36,9 +36,9 @@ if ( ! defined( 'MSFWC_PLUGIN_URL' ) ) {
 	define( 'MSFWC_PLUGIN_URL', plugins_url( '', __FILE__ ) . '/' );
 }
 
-function msfwc(): ?Plugin {
+function meili(): ?Plugin {
 	return Plugin::instance();
 }
 
 // Global for backwards compatibility
-$GLOBALS['msfwc'] = msfwc();
+$GLOBALS['msfwc'] = meili();

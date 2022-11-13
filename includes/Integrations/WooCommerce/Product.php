@@ -61,7 +61,7 @@ class Product {
 			return;
 		}
 
-		$document = msfwc()
+		$document = meili()
 			->api()
 			->upsert_documents(
 				IndexEnum::WC_PRODUCTS,
@@ -85,7 +85,7 @@ class Product {
 	}
 
 	public function on_delete_product() {
-
+		// TODO: Implement method
 	}
 
 }

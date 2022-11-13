@@ -3,34 +3,17 @@
 namespace MeilisearchForWooCommerce;
 
 use Exception;
-use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Psr\Http\Message\ResponseInterface;
+use MeilisearchForWooCommerce\Abstracts\AbstractMeilisearchApi;
 use WP_Error;
 
 defined( 'ABSPATH' ) || exit;
 
-class MeilisearchApi {
+class MeilisearchApi extends AbstractMeilisearchApi {
 
 	/**
-	 * @var Client
-	 */
-	protected Client $client;
-
-	public function __construct() {
-		$token = msfwc_get_meilisearch_instance_api_key();
-
-		$this->client = new Client(
-			array(
-				'base_uri' => msfwc_get_meilisearch_instance_url(),
-				'headers'  => array(
-					'Authorization' => "Bearer $token"
-				)
-			)
-		);
-	}
-
-	/**
+	 * Retrieves a single document from the given index.
+	 *
 	 * @param string $index
 	 * @param int $id
 	 * @param string[] $fields
@@ -52,24 +35,8 @@ class MeilisearchApi {
 	}
 
 	/**
-	 * @param ResponseInterface $response
+	 * Retrieves multiple documents from the given index.
 	 *
-	 * @return array|WP_Error
-	 */
-	public function response( ResponseInterface $response ) {
-		$status   = $response->getStatusCode();
-		$contents = $response->getBody()->getContents();
-
-		if ( $status >= 200 && $status < 300 ) {
-			$response = json_decode( $contents, true );
-		} else {
-			$response = new WP_Error( $response->getStatusCode(), $contents );
-		}
-
-		return $response;
-	}
-
-	/**
 	 * @param string $index
 	 * @param int|null $limit
 	 * @param int|null $offset
@@ -95,6 +62,8 @@ class MeilisearchApi {
 	}
 
 	/**
+	 * Updates an existing, or inserts a new document into an index.
+	 *
 	 * @param string $index
 	 * @param array $data
 	 *
@@ -105,6 +74,23 @@ class MeilisearchApi {
 			$response = $this->client->post( "/indexes/$index/documents", array(
 				RequestOptions::JSON => $data
 			) );
+		} catch ( Exception $e ) {
+			return new WP_Error( $e->getCode(), $e->getMessage() );
+		}
+
+		return $this->response( $response );
+	}
+
+	/**
+	 * Deletes all documents from an index.
+	 *
+	 * @param string $index
+	 *
+	 * @return array|WP_Error
+	 */
+	public function delete_all_documents( string $index ) {
+		try {
+			$response = $this->client->delete( "/indexes/$index/documents" );
 		} catch ( Exception $e ) {
 			return new WP_Error( $e->getCode(), $e->getMessage() );
 		}

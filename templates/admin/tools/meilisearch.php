@@ -23,12 +23,19 @@
                 </form>
             </div>
             <div class="tile">
-                <h2><?php esc_html_e( 'Index cleanup', 'meilisearch-for-woocommerce' ); ?></h2>
+                <h2><?php esc_html_e( 'Delete all documents', 'meilisearch-for-woocommerce' ); ?></h2>
                 <p><?php esc_html_e( 'This action will delete all documents from the Meilisearch instance, it will NOT delete the WooCommerce products. Use with caution.', 'meilisearch-for-woocommerce' ); ?></p>
 
-                <form action="<?php esc_url( 'admin-post.php' ); ?>"
+                <form action="<?php msfwc_admin_post_url(); ?>"
                       method="post">
-					<?php submit_button( esc_html__( 'Empty the index', 'meilisearch-for-woocommerce' ) ); ?>
+                    <input type="hidden"
+                           name="action"
+                           value="meili_delete_all_documents">
+					<?php wp_nonce_field( 'meili_delete_all_documents' ); ?>
+					<?php submit_button( esc_html__(
+						'Remove all documents from the index.',
+						'meilisearch-for-woocommerce'
+					) ); ?>
                 </form>
             </div>
 

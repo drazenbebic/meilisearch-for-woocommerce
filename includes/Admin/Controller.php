@@ -36,7 +36,7 @@ class Controller {
 			), 404 );
 		}
 
-		$document = msfwc()->api()->upsert_documents(
+		$document = meili()->api()->upsert_documents(
 			IndexEnum::WC_PRODUCTS,
 			array(
 				msfwc_map_product_fields( $product )

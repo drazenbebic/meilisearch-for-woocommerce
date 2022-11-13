@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return void
  */
-function msfwc_var_dump_pre( $var, bool $exit = false ): void {
+function msfwc_var_dump_pre( $var, bool $exit = true ): void {
 	echo "<pre>";
 	print_r( $var );
 	echo "</pre>";
@@ -22,6 +22,15 @@ function msfwc_var_dump_pre( $var, bool $exit = false ): void {
 	if ( $exit ) {
 		exit;
 	}
+}
+
+/**
+ * Outputs the admin-post.php URL. Useful for admin_post hooks.
+ *
+ * @return void
+ */
+function msfwc_admin_post_url() {
+	echo esc_url( admin_url( 'admin-post.php' ) );
 }
 
 /**
@@ -224,6 +233,13 @@ function msfwc_get_utc_date_time( string $date_time_string ): DateTime {
 	return new DateTime( $date_time_string, new DateTimeZone( 'UTC' ) );
 }
 
+/**
+ * Maps the WooCommerce product fields to the Meilisearch document.
+ *
+ * @param WC_Product $product
+ *
+ * @return array
+ */
 function msfwc_map_product_fields( WC_Product $product ): array {
 	$fields       = msfwc_get_product_sync_fields();
 	$data         = array();
