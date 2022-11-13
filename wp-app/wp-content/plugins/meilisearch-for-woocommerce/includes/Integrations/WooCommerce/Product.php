@@ -36,8 +36,9 @@ class Product {
 		WP_Post $post,
 		bool $update
 	) {
-		if ( ! $update && $post->post_status !== 'auto-draft' ) {
-			msfwc_var_dump_pre( $post );
+		// Drafts should never be synchronized
+		if ($post->post_status === 'auto-draft') {
+			return;
 		}
 
 		// Skip if this is an update and sync on update is off.
