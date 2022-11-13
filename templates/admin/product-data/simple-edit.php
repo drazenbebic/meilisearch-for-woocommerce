@@ -14,7 +14,10 @@ use MeilisearchForWooCommerce\Interfaces\ModelInterface;
 
 		<?php if ( $document->get_error_code() === 404 ): ?>
 
-            <p><?php esc_html_e( 'The product has not been synchronized yet.', 'meilisearch-for-woocommerce' ); ?></p>
+            <h2>
+                <i class="fa-solid fa-circle-exclamation"></i>
+				<?php esc_html_e( 'This product is not synchronized', 'meilisearch-for-woocommerce' ); ?>
+            </h2>
             <p>
                 <button data-product-id="<?php echo esc_attr( $product_id ); ?>"
                         type="button"
@@ -31,7 +34,10 @@ use MeilisearchForWooCommerce\Interfaces\ModelInterface;
 
 	<?php else: ?>
 
-		<?php msfwc_var_dump_pre( $document ); ?>
+        <h2>
+            <i class="fa-solid fa-circle-check"></i>
+			<?php esc_html_e( 'This product is synchronized', 'meilisearch-for-woocommerce' ); ?>
+        </h2>
 
         <p>
             <button data-product-id="<?php echo esc_attr( $product_id ); ?>"

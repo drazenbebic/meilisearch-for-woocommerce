@@ -30,11 +30,19 @@ class Assets {
 			MSFWC_VERSION
 		);
 
+		wp_register_style(
+			'msfwc_admin_fontawesome',
+			msfwc_get_admin_css_url( 'msfwc-fontawesome.css' ),
+			array(),
+			'6.2.0'
+		);
+
 		if ( in_array( $screen_id, array(
 			'product',
 			'tools_page_meilisearch'
 		) ) ) {
 			wp_enqueue_style( 'msfwc_admin_css' );
+			wp_enqueue_style( 'msfwc_admin_fontawesome' );
 		}
 
 	}
@@ -44,7 +52,7 @@ class Assets {
 		$screen_id = $screen ? $screen->id : '';
 
 		wp_register_script(
-			'msfwc_admin',
+			'msfwc_admin_js',
 			msfwc_get_admin_js_url( 'msfwc-admin.js' ),
 			array( 'jquery' ),
 			MSFWC_VERSION
@@ -53,10 +61,10 @@ class Assets {
 		if ( in_array( $screen_id, array(
 			'product',
 		) ) ) {
-			wp_enqueue_script( 'msfwc_admin' );
+			wp_enqueue_script( 'msfwc_admin_js' );
 
 			// Script localization
-			wp_localize_script( 'msfwc_admin', 'security', array(
+			wp_localize_script( 'msfwc_admin_js', 'security', array(
 				'synchronize_product' => wp_create_nonce( 'msfwc_synchronize_product' ),
 			) );
 		}

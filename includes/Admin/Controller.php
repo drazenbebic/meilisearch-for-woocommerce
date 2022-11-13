@@ -47,10 +47,23 @@ class Controller {
 			), $document->get_error_code() );
 		}
 
+		ob_clean();
+		msfwc_get_template(
+			'admin/product-data/simple-edit.php',
+			array(
+				'document'   => $document,
+				'product_id' => $productId
+			)
+		);
+		$template = ob_get_contents();
+
 		wp_send_json( array(
 			'success' => true,
 			'message' => 'Product synchronized successfully.',
-			'data'    => $document
+			'data'    => array(
+				'document' => $document,
+				'template' => $template
+			)
 		), 200 );
 	}
 
