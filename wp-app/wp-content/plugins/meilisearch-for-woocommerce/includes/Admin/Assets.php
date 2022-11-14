@@ -21,18 +21,18 @@ class Assets {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		//msfwc_var_dump_pre( 'SCREEN_ID:' . $screen_id, true );
+		//msfwc_var_dump_pre( 'SCREEN_ID: ' . $screen_id );
 
 		wp_register_style(
 			'msfwc_admin_css',
-			msfwc_get_admin_css_url( 'msfwc-admin.css' ),
+			msfwc_get_admin_css_url( 'msfwc-admin.min.css' ),
 			array(),
 			MSFWC_VERSION
 		);
 
 		wp_register_style(
 			'msfwc_admin_fontawesome',
-			msfwc_get_admin_css_url( 'msfwc-fontawesome.css' ),
+			msfwc_get_admin_css_url( 'msfwc-fontawesome.min.css' ),
 			array(),
 			'6.2.0'
 		);

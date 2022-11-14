@@ -33,7 +33,7 @@ if ( ! defined( 'MSFWC_PLUGIN_DIR' ) ) {
 }
 
 if ( ! defined( 'MSFWC_PLUGIN_URL' ) ) {
-	define( 'MSFWC_PLUGIN_URL', plugins_url( '', __FILE__ ) . 'meilisearch-for-woocommerce.php/' );
+	define( 'MSFWC_PLUGIN_URL', plugins_url( '', __FILE__ ) . '/' );
 }
 
 function meili(): ?Plugin {
