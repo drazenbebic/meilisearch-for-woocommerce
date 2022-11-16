@@ -19,11 +19,11 @@ abstract class AbstractMeilisearchApi {
 	 * Prepares the Meilisearch instance.
 	 */
 	public function __construct() {
-		$token = msfwc_get_meilisearch_instance_api_key();
+		$token = meili_get_meilisearch_instance_api_key();
 
 		$this->client = new Client(
 			array(
-				'base_uri' => msfwc_get_meilisearch_instance_url(),
+				'base_uri' => meili_get_meilisearch_instance_url(),
 				'headers'  => array(
 					'Authorization' => "Bearer $token"
 				)

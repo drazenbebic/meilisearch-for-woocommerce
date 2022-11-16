@@ -79,32 +79,83 @@ class ProductData {
 	/**
 	 * Displays the new fields inside the new product data tab.
 	 */
-	public function simple_product_data_panel() {
+	public function simple_product_data_panel( $var ) {
+		var_dump( $var );
+
 		global $post;
 
-		$screen = get_current_screen();
+		$skip_on_update = get_post_meta( $post->ID, 'meili_skip_on_update', true );
+		$skip_on_delete = get_post_meta( $post->ID, 'meili_skip_on_delete', true );
 
 		echo sprintf(
 			'<div id="%s" class="panel woocommerce_options_panel"><div class="options_group">',
 			$this->tab_target
 		);
 
-		if ( $screen->action === '' ) {
-			$document = meili()->api()->get_document(
-				msfwc_get_product_index_name(),
-				$post->ID
-			);
+		echo '<input type="hidden" name="meili_edit_flag" value="true" />';
 
-			msfwc_get_template(
-				'admin/product-data/simple-edit.php',
-				array(
-					'document'   => $document,
-					'product_id' => $post->ID
-				)
-			);
+		$document = meili()->api()->get_document(
+			meili_get_product_index_name(),
+			$post->ID
+		);
+
+		// Index status
+		echo '
+			<p class="form-field meili_index_status_field ">
+				<label for="meili_index_status">
+					' . esc_html__( 'Status', 'meilisearch-for-woocommerce' ) . '
+				</label>
+		';
+
+		if ( is_wp_error( $document ) ) {
+			echo '
+				<span class="description" style="margin-left: 0;">
+					<i class="fa-solid fa-circle-check"></i>
+					' . esc_html__( 'Product is indexed', 'meilisearch-for-woocommerce' ) . '
+				</span>
+			';
+		} else {
+			echo '
+				<span class="description" style="margin-left: 0;">
+					<i class="fa-solid fa-circle-exclamation"></i>
+					' . esc_html__( 'Product is not indexed', 'meilisearch-for-woocommerce' ) . '
+				</span>
+			';
 		}
 
-		do_action( 'msfwc_simple_product_data_panel', $post );
+		echo '</p>';
+
+		// Adds the "Index now" button
+		echo '<p class="form-field">';
+		submit_button(
+			esc_html__( 'Index now', 'meilisearch-for-woocommerce' ),
+			'primary',
+			'meili_index_now',
+			false
+		);
+		echo '</p>';
+
+		echo '</div><div class="options_group">';
+
+		woocommerce_wp_checkbox( array(
+			'id'          => 'meili_skip_on_update',
+			'label'       => esc_html__( 'Skip on update', 'meilisearch-for-woocommerce' ),
+			'description' => esc_html__( 'Skip this product when the index is updated.', 'meilisearch-for-woocommerce' ),
+			'value'       => $skip_on_update,
+			'cbvalue'     => 1,
+			'desc_tip'    => false
+		) );
+
+		woocommerce_wp_checkbox( array(
+			'id'          => 'meili_skip_on_delete',
+			'label'       => esc_html__( 'Skip on delete', 'meilisearch-for-woocommerce' ),
+			'description' => esc_html__( 'Skip this product when the index is deleted.', 'meilisearch-for-woocommerce' ),
+			'value'       => $skip_on_delete,
+			'cbvalue'     => 1,
+			'desc_tip'    => false
+		) );
+
+		do_action( 'meili_simple_product_data_panel', $post );
 
 		echo '</div></div>';
 	}
@@ -116,11 +167,25 @@ class ProductData {
 	 */
 	public function simple_product_save( int $post_id ) {
 		// Edit flag isn't set
-		if ( ! isset( $_POST['msfwc_edit_flag'] ) ) {
+		if ( ! isset( $_POST['meili_edit_flag'] ) ) {
 			return;
 		}
 
-		do_action( 'msfwc_simple_product_save', $post_id );
+		// Update skip on update flag, according to checkbox.
+		if ( isset( $_POST['meili_skip_on_update'] ) ) {
+			update_post_meta( $post_id, 'meili_skip_on_update', 1 );
+		} else {
+			update_post_meta( $post_id, 'meili_skip_on_update', 0 );
+		}
+
+		// Update skip on update flag, according to checkbox.
+		if ( isset( $_POST['meili_skip_on_update'] ) ) {
+			update_post_meta( $post_id, 'meili_skip_on_update', 1 );
+		} else {
+			update_post_meta( $post_id, 'meili_skip_on_update', 0 );
+		}
+
+		do_action( 'meili_simple_product_save', $post_id );
 	}
 
 	/**
@@ -130,15 +195,20 @@ class ProductData {
 	 * @param array $variation_data
 	 * @param WP_Post $variation
 	 */
-	public function variable_product_data_panel( int $loop, array $variation_data, WP_Post $variation ) {
+	public function variable_product_data_panel(
+		int $loop, array $variation_data, WP_Post $variation
+	) {
 		echo sprintf(
 			'<p class="form-row form-row-full"><strong>%s</strong></p>',
 			__( 'Meilisearch for WooCommerce', 'meilisearch-for-woocommerce' )
 		);
 
-		echo '<input type="hidden" name="msfwc_edit_flag" value="true" />';
+		echo '<input type="hidden" name="meili_edit_flag" value="true" />';
 
-		do_action( 'msfwc_variable_product_data_panel', $loop, $variation_data, $variation );
+		do_action(
+			'meili_variable_product_data_panel', $loop, $variation_data,
+			$variation
+		);
 	}
 
 	/**
@@ -148,7 +218,7 @@ class ProductData {
 	 * @param int $i
 	 */
 	public function variable_product_save( int $variation_id, int $i ) {
-		do_action( 'msfwc_variable_product_save', $variation_id, $i );
+		do_action( 'meili_variable_product_save', $variation_id, $i );
 	}
 
 }

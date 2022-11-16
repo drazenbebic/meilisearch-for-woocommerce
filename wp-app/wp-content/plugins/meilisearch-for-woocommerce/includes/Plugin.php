@@ -28,32 +28,32 @@ final class Plugin {
 			define( 'ABSPATH_LENGTH', strlen( ABSPATH ) );
 		}
 
-		define( 'MSFWC_ABSPATH', dirname( MSFWC_PLUGIN_FILE ) . '/' );
-		define( 'MSFWC_ASSETS_DIR', MSFWC_ABSPATH . 'assets/' );
-		define( 'MSFWC_TEMPLATES_DIR', MSFWC_ABSPATH . 'templates/' );
-		define( 'MSFWC_MIGRATIONS_DIR', MSFWC_ABSPATH . 'migrations/' );
-		define( 'MSFWC_ASSETS_URL', MSFWC_PLUGIN_URL . 'assets/' );
-		define( 'MSFWC_CSS_URL', MSFWC_ASSETS_URL . 'css/' );
-		define( 'MSFWC_JS_URL', MSFWC_ASSETS_URL . 'js/' );
-		define( 'MSFWC_IMG_URL', MSFWC_ASSETS_URL . 'img/' );
-		define( 'MSFWC_ADMIN_CSS_URL', MSFWC_ASSETS_URL . 'admin/css/' );
-		define( 'MSFWC_ADMIN_JS_URL', MSFWC_ASSETS_URL . 'admin/js/' );
-		define( 'MSFWC_ADMIN_IMG_URL', MSFWC_ASSETS_URL . 'admin/img/' );
+		define( 'MEILI_ABSPATH', dirname( MEILI_PLUGIN_FILE ) . '/' );
+		define( 'MEILI_ASSETS_DIR', MEILI_ABSPATH . 'assets/' );
+		define( 'MEILI_TEMPLATES_DIR', MEILI_ABSPATH . 'templates/' );
+		define( 'MEILI_MIGRATIONS_DIR', MEILI_ABSPATH . 'migrations/' );
+		define( 'MEILI_ASSETS_URL', MEILI_PLUGIN_URL . 'assets/' );
+		define( 'MEILI_CSS_URL', MEILI_ASSETS_URL . 'css/' );
+		define( 'MEILI_JS_URL', MEILI_ASSETS_URL . 'js/' );
+		define( 'MEILI_IMG_URL', MEILI_ASSETS_URL . 'img/' );
+		define( 'MEILI_ADMIN_CSS_URL', MEILI_ASSETS_URL . 'admin/css/' );
+		define( 'MEILI_ADMIN_JS_URL', MEILI_ASSETS_URL . 'admin/js/' );
+		define( 'MEILI_ADMIN_IMG_URL', MEILI_ASSETS_URL . 'admin/img/' );
 	}
 
 	private function hooks() {
 		register_activation_hook(
-			MSFWC_PLUGIN_FILE,
+			MEILI_PLUGIN_FILE,
 			array( '\MeilisearchForWooCommerce\Setup', 'activate' )
 		);
 
 		register_deactivation_hook(
-			MSFWC_PLUGIN_FILE,
+			MEILI_PLUGIN_FILE,
 			array( '\MeilisearchForWooCommerce\Setup', 'deactivate' )
 		);
 
 		register_uninstall_hook(
-			MSFWC_PLUGIN_FILE,
+			MEILI_PLUGIN_FILE,
 			array( '\MeilisearchForWooCommerce\Setup', 'uninstall' )
 		);
 	}
@@ -74,7 +74,6 @@ final class Plugin {
 
 	public function init() {
 		new Admin\Assets();
-		new Admin\Controller();
 
 		if ( Dependencies::is_woocommerce_active() ) {
 			new Integrations\WooCommerce();

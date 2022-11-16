@@ -23,7 +23,7 @@ class Menu {
 	}
 
 	public function admin_page() {
-		msfwc_get_template( 'admin/tools/meilisearch.php' );
+		meili_get_template( 'admin/tools/meilisearch.php' );
 	}
 
 	public function admin_page_load() {

@@ -32,23 +32,23 @@ class Product {
 	 * @return void
 	 */
 	public function on_save_product(
-		int $product_id,
+		int     $product_id,
 		WP_Post $post,
-		bool $update
+		bool    $update
 	) {
 		// Drafts should never be synchronized
-		if ($post->post_status === 'auto-draft') {
+		if ( $post->post_status === 'auto-draft' ) {
 			return;
 		}
 
 		// Skip if this is an update and sync on update is off.
-		if ( $update && ! msfwc_product_sync_on_update() ) {
+		if ( $update && ! meili_product_sync_on_update() ) {
 			return;
 		}
 
 		// Skip if this is a new product and sync on create is off.
-		if ( $post->post_status === 'publish' && ! $update && ! msfwc_product_sync_on_create() ) {
-			msfwc_var_dump_pre( $post->post_status );
+		if ( $post->post_status === 'publish' && ! $update && ! meili_product_sync_on_create() ) {
+			meili_var_dump_pre( $post->post_status );
 
 			return;
 		}
@@ -62,9 +62,9 @@ class Product {
 		$document = meili()
 			->api()
 			->upsert_documents(
-				msfwc_get_product_index_name(),
+				meili_get_product_index_name(),
 				array(
-					msfwc_map_product_fields( $product )
+					meili_map_product_fields( $product )
 				)
 			);
 
@@ -76,7 +76,7 @@ class Product {
 
 		do_action(
 			'meili_event_post_document_upsert',
-			msfwc_get_product_index_name(),
+			meili_get_product_index_name(),
 			$product,
 			$document
 		);

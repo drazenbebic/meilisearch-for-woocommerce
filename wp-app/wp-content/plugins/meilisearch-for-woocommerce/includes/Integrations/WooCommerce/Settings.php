@@ -29,7 +29,7 @@ class Settings {
 	 * @return array
 	 */
 	public function settings_tabs_array( array $tabs ): array {
-		return msfwc_array_insert_after(
+		return meili_array_insert_after(
 			'integration',
 			$tabs,
 			'meilisearch',
@@ -46,75 +46,75 @@ class Settings {
 	}
 
 	private function get_settings(): array {
-		return apply_filters( 'msfwc_settings_tab_meilisearch', array(
+		return apply_filters( 'meili_settings_tab_meilisearch', array(
 			// meilisearch_instance
 			'meilisearch_instance'             => array(
-				'id'   => 'msfwc_setting_meilisearch_instance_title',
+				'id'   => 'meili_setting_meilisearch_instance_title',
 				'name' => __( 'Meilisearch instance', 'meilisearch-for-woocommerce' ),
 				'type' => 'title',
 				'desc' => __( 'Provide the URL and API key of your Meilisearch instance.', 'meilisearch-for-woocommerce' )
 			),
 			'url'                              => array(
-				'id'       => 'msfwc_setting_meilisearch_instance_url',
+				'id'       => 'meili_setting_meilisearch_instance_url',
 				'name'     => __( 'URL', 'meilisearch-for-woocommerce' ),
 				'type'     => 'text',
 				'desc'     => __( 'URL of your Meilisearch instance, without a trailing slash.', 'meilisearch-for-woocommerce' ),
 				'desc_tip' => 'Example: https://meilisearch.example.com'
 			),
 			'api_key'                          => array(
-				'id'   => 'msfwc_setting_meilisearch_instance_api_key',
+				'id'   => 'meili_setting_meilisearch_instance_api_key',
 				'name' => __( 'API Key', 'meilisearch-for-woocommerce' ),
 				'type' => 'password',
 				'desc' => __( 'API key of your Meilisearch instance.', 'meilisearch-for-woocommerce' ),
 			),
 			'meilisearch_instance_section_end' => array(
-				'id'   => 'msfwc_setting_meilisearch_instance_sectionend',
+				'id'   => 'meili_setting_meilisearch_instance_sectionend',
 				'type' => 'sectionend',
 			),
 			// indexes
 			'index'                            => array(
-				'id'   => 'msfwc_setting_product_sync_title',
+				'id'   => 'meili_setting_index_title',
 				'name' => __( 'Indexes', 'meilisearch-for-woocommerce' ),
 				'type' => 'title',
 				'desc' => __( 'Define the names of your Meilisearch indexes', 'meilisearch-for-woocommerce' )
 			),
 			'products'                         => array(
-				'id'   => 'msfwc_setting_index_products',
+				'id'   => 'meili_setting_index_products',
 				'name' => __( 'Products', 'meilisearch-for-woocommerce' ),
 				'type' => 'text',
 				'desc' => __( 'Name of the index containing the product data.', 'meilisearch-for-woocommerce' )
 			),
 			'index_section_end'                => array(
-				'id'   => 'msfwc_setting_meilisearch_instance_sectionend',
+				'id'   => 'meili_setting_index_sectionend',
 				'type' => 'sectionend',
 			),
-			// product_sync
-			'product_sync'                     => array(
-				'id'   => 'msfwc_setting_product_sync_title',
-				'name' => __( 'Product synchronization', 'meilisearch-for-woocommerce' ),
+			// index_update
+			'index_update'                     => array(
+				'id'   => 'meili_setting_index_update_title',
+				'name' => __( 'Index update behavior', 'meilisearch-for-woocommerce' ),
 				'type' => 'title',
 				'desc' => __( 'These settings define how the plugin will keep the product data synchronized with Meilisearch.', 'meilisearch-for-woocommerce' )
 			),
 			'on_create'                        => array(
-				'id'   => 'msfwc_setting_product_sync_on_create',
+				'id'   => 'meili_setting_index_update_on_create',
 				'name' => __( 'When a product is created', 'meilisearch-for-woocommerce' ),
 				'type' => 'checkbox',
 				'desc' => __( 'Create a Meilisearch document when new a product has been created.', 'meilisearch-for-woocommerce' ),
 			),
 			'on_update'                        => array(
-				'id'   => 'msfwc_setting_product_sync_on_update',
+				'id'   => 'meili_setting_index_update_on_update',
 				'name' => __( 'When a product is updated', 'meilisearch-for-woocommerce' ),
 				'type' => 'checkbox',
 				'desc' => __( 'Update the Meilisearch document when the corresponding product has been updated.', 'meilisearch-for-woocommerce' ),
 			),
 			'on_delete'                        => array(
-				'id'   => 'msfwc_setting_product_sync_on_delete',
+				'id'   => 'meili_setting_index_update_on_delete',
 				'name' => __( 'When a product is deleted', 'meilisearch-for-woocommerce' ),
 				'type' => 'checkbox',
 				'desc' => __( 'Delete the Meilisearch document when the corresponding product has been deleted.', 'meilisearch-for-woocommerce' ),
 			),
-			'product_sync_section_end'         => array(
-				'id'   => 'msfwc_setting_product_sync_sectionend',
+			'index_update_section_end'         => array(
+				'id'   => 'meili_setting_index_update_sectionend',
 				'type' => 'sectionend',
 			),
 		) );

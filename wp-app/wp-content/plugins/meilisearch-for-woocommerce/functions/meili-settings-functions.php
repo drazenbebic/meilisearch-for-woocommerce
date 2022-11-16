@@ -7,8 +7,8 @@ use MeilisearchForWooCommerce\Setup;
  *
  * @return string|null
  */
-function msfwc_get_meilisearch_instance_url(): ?string {
-	return get_option( 'msfwc_setting_meilisearch_instance_url', null );
+function meili_get_meilisearch_instance_url(): ?string {
+	return get_option( 'meili_setting_meilisearch_instance_url', null );
 }
 
 /**
@@ -16,8 +16,8 @@ function msfwc_get_meilisearch_instance_url(): ?string {
  *
  * @return string|null
  */
-function msfwc_get_meilisearch_instance_api_key(): ?string {
-	return get_option( 'msfwc_setting_meilisearch_instance_api_key', null );
+function meili_get_meilisearch_instance_api_key(): ?string {
+	return get_option( 'meili_setting_meilisearch_instance_api_key', null );
 }
 
 /**
@@ -25,8 +25,8 @@ function msfwc_get_meilisearch_instance_api_key(): ?string {
  *
  * @return string
  */
-function msfwc_get_product_index_name(): string {
-	return get_option( 'msfwc_setting_index_products', Setup::PRODUCTS_INDEX_DEFAULT );
+function meili_get_product_index_name(): string {
+	return get_option( 'meili_setting_index_products', Setup::PRODUCTS_INDEX_DEFAULT );
 }
 
 /**
@@ -34,8 +34,8 @@ function msfwc_get_product_index_name(): string {
  *
  * @return bool
  */
-function msfwc_is_meilisearch_instance_configured(): bool {
-	return msfwc_get_meilisearch_instance_url() && msfwc_get_meilisearch_instance_api_key();
+function meili_is_meilisearch_instance_configured(): bool {
+	return meili_get_meilisearch_instance_url() && meili_get_meilisearch_instance_api_key();
 }
 
 /**
@@ -43,8 +43,8 @@ function msfwc_is_meilisearch_instance_configured(): bool {
  *
  * @return bool
  */
-function msfwc_product_sync_on_create(): bool {
-	return get_option( 'msfwc_setting_product_sync_on_create', false ) === 'yes';
+function meili_product_sync_on_create(): bool {
+	return get_option( 'meili_setting_product_sync_on_create', false ) === 'yes';
 }
 
 /**
@@ -52,8 +52,8 @@ function msfwc_product_sync_on_create(): bool {
  *
  * @return bool
  */
-function msfwc_product_sync_on_update(): bool {
-	return get_option( 'msfwc_setting_product_sync_on_update', false ) === 'yes';
+function meili_product_sync_on_update(): bool {
+	return get_option( 'meili_setting_product_sync_on_update', false ) === 'yes';
 }
 
 /**
@@ -62,8 +62,8 @@ function msfwc_product_sync_on_update(): bool {
  *
  * @return bool
  */
-function msfwc_product_sync_on_delete(): bool {
-	return get_option( 'msfwc_setting_product_sync_on_delete', false ) === 'yes';
+function meili_product_sync_on_delete(): bool {
+	return get_option( 'meili_setting_product_sync_on_delete', false ) === 'yes';
 }
 
 /**
@@ -71,8 +71,8 @@ function msfwc_product_sync_on_delete(): bool {
  *
  * @return array
  */
-function msfwc_get_product_sync_fields(): array {
-	return get_option( 'msfwc_product_sync_fields', array(
+function meili_get_product_sync_fields(): array {
+	return get_option( 'meili_setting_product_sync_fields', array(
 		array(
 			'type'  => 'property',
 			'value' => 'id'

@@ -28,7 +28,7 @@ class Controller {
 		check_admin_referer( 'meili_sync_all_products' );
 
 		// TODO: Implement the method
-		msfwc_var_dump_pre( $_POST );
+		meili_var_dump_pre( $_POST );
 	}
 
 	/**
@@ -41,11 +41,11 @@ class Controller {
 
 		$documents = meili()
 			->api()
-			->delete_all_documents( msfwc_get_product_index_name() );
+			->delete_all_documents( meili_get_product_index_name() );
 
 		if ( is_wp_error( $documents ) ) {
 			// TODO: Add error notification
-			msfwc_var_dump_pre( $documents );
+			meili_var_dump_pre( $documents );
 		}
 
 		// TODO: Add success notification

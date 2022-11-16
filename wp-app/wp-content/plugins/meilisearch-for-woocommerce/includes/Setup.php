@@ -56,13 +56,13 @@ class Setup {
 	 * @return array
 	 */
 	private static function get_default_settings(): array {
-		return apply_filters( 'msfwc_default_settings', array(
-			'msfwc_setting_meilisearch_instance_url'     => null,
-			'msfwc_setting_meilisearch_instance_api_key' => null,
-			'msfwc_setting_index_products'               => self::PRODUCTS_INDEX_DEFAULT,
-			'msfwc_setting_product_sync_on_create'       => 'yes',
-			'msfwc_setting_product_sync_on_update'       => 'yes',
-			'msfwc_setting_product_sync_on_delete'       => 'yes'
+		return apply_filters( 'meili_default_settings', array(
+			'meili_setting_meilisearch_instance_url'     => null,
+			'meili_setting_meilisearch_instance_api_key' => null,
+			'meili_setting_index_products'               => self::PRODUCTS_INDEX_DEFAULT,
+			'meili_setting_index_update_on_create'       => 'yes',
+			'meili_setting_index_update_on_update'       => 'yes',
+			'meili_setting_index_update_on_delete'       => 'yes'
 		) );
 	}
 
