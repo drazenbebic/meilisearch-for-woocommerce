@@ -28,7 +28,7 @@ final class Plugin {
 			define( 'ABSPATH_LENGTH', strlen( ABSPATH ) );
 		}
 
-		define( 'MSFWC_ABSPATH', dirname( MSFWC_PLUGIN_FILE ) . 'Plugin.php/' );
+		define( 'MSFWC_ABSPATH', dirname( MSFWC_PLUGIN_FILE ) . '/' );
 		define( 'MSFWC_ASSETS_DIR', MSFWC_ABSPATH . 'assets/' );
 		define( 'MSFWC_TEMPLATES_DIR', MSFWC_ABSPATH . 'templates/' );
 		define( 'MSFWC_MIGRATIONS_DIR', MSFWC_ABSPATH . 'migrations/' );
