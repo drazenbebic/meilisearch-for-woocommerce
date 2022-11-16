@@ -3,6 +3,28 @@
 use MeilisearchForWooCommerce\Setup;
 
 /**
+ * Identifies whether a product should be skipped during the index update.
+ *
+ * @param int $product_id
+ *
+ * @return bool
+ */
+function meili_product_skip_on_update( int $product_id ): bool {
+	return get_post_meta( $product_id, 'meili_skip_on_update', true ) === '1';
+}
+
+/**
+ * Identifies whether a product should be skipped during index deletion.
+ *
+ * @param int $product_id
+ *
+ * @return bool
+ */
+function meili_product_skip_on_delete( int $product_id ): bool {
+	return get_post_meta( $product_id, 'meili_skip_on_delete', true ) === '1';
+}
+
+/**
  * Returns the Meilisearch instance URL.
  *
  * @return string|null

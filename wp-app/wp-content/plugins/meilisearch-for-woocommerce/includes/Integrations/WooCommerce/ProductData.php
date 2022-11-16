@@ -79,13 +79,8 @@ class ProductData {
 	/**
 	 * Displays the new fields inside the new product data tab.
 	 */
-	public function simple_product_data_panel( $var ) {
-		var_dump( $var );
-
+	public function simple_product_data_panel() {
 		global $post;
-
-		$skip_on_update = get_post_meta( $post->ID, 'meili_skip_on_update', true );
-		$skip_on_delete = get_post_meta( $post->ID, 'meili_skip_on_delete', true );
 
 		echo sprintf(
 			'<div id="%s" class="panel woocommerce_options_panel"><div class="options_group">',
@@ -100,62 +95,33 @@ class ProductData {
 		);
 
 		// Index status
-		echo '
-			<p class="form-field meili_index_status_field ">
-				<label for="meili_index_status">
-					' . esc_html__( 'Status', 'meilisearch-for-woocommerce' ) . '
-				</label>
-		';
-
-		if ( is_wp_error( $document ) ) {
-			echo '
-				<span class="description" style="margin-left: 0;">
-					<i class="fa-solid fa-circle-check"></i>
-					' . esc_html__( 'Product is indexed', 'meilisearch-for-woocommerce' ) . '
-				</span>
-			';
-		} else {
-			echo '
-				<span class="description" style="margin-left: 0;">
-					<i class="fa-solid fa-circle-exclamation"></i>
-					' . esc_html__( 'Product is not indexed', 'meilisearch-for-woocommerce' ) . '
-				</span>
-			';
-		}
-
-		echo '</p>';
-
-		// Adds the "Index now" button
-		echo '<p class="form-field">';
-		submit_button(
-			esc_html__( 'Index now', 'meilisearch-for-woocommerce' ),
-			'primary',
-			'meili_index_now',
-			false
-		);
-		echo '</p>';
+		meili_get_template( '/admin/product-data/simple.php', array(
+			'document' => $document
+		) );
 
 		echo '</div><div class="options_group">';
 
+		// Skip on update checkbox
 		woocommerce_wp_checkbox( array(
 			'id'          => 'meili_skip_on_update',
 			'label'       => esc_html__( 'Skip on update', 'meilisearch-for-woocommerce' ),
 			'description' => esc_html__( 'Skip this product when the index is updated.', 'meilisearch-for-woocommerce' ),
-			'value'       => $skip_on_update,
+			'value'       => meili_product_skip_on_update( $post->ID ),
 			'cbvalue'     => 1,
 			'desc_tip'    => false
 		) );
 
+		// Skip on delete checkbox
 		woocommerce_wp_checkbox( array(
 			'id'          => 'meili_skip_on_delete',
 			'label'       => esc_html__( 'Skip on delete', 'meilisearch-for-woocommerce' ),
 			'description' => esc_html__( 'Skip this product when the index is deleted.', 'meilisearch-for-woocommerce' ),
-			'value'       => $skip_on_delete,
+			'value'       => meili_product_skip_on_delete( $post->ID ),
 			'cbvalue'     => 1,
 			'desc_tip'    => false
 		) );
 
-		do_action( 'meili_simple_product_data_panel', $post );
+		do_action( 'meili_simple_product_data_panel', $post->ID );
 
 		echo '</div></div>';
 	}
@@ -171,6 +137,11 @@ class ProductData {
 			return;
 		}
 
+		// Update the product index on Meilisearch
+		if ( isset( $_POST['meili_index_now'] ) ) {
+			meili_var_dump_pre( $_POST );
+		}
+
 		// Update skip on update flag, according to checkbox.
 		if ( isset( $_POST['meili_skip_on_update'] ) ) {
 			update_post_meta( $post_id, 'meili_skip_on_update', 1 );
@@ -179,10 +150,10 @@ class ProductData {
 		}
 
 		// Update skip on update flag, according to checkbox.
-		if ( isset( $_POST['meili_skip_on_update'] ) ) {
-			update_post_meta( $post_id, 'meili_skip_on_update', 1 );
+		if ( isset( $_POST['meili_skip_on_delete'] ) ) {
+			update_post_meta( $post_id, 'meili_skip_on_delete', 1 );
 		} else {
-			update_post_meta( $post_id, 'meili_skip_on_update', 0 );
+			update_post_meta( $post_id, 'meili_skip_on_delete', 0 );
 		}
 
 		do_action( 'meili_simple_product_save', $post_id );
