@@ -1,5 +1,16 @@
 @import "component_admin_product_data";
 
+$meili_success_color: #00a32a;
+$meili_warning_color: #dba617;
+
 #meili_index_now {
   margin-left: 0;
+}
+
+.meili-text-success {
+  color: $meili_success_color;
+}
+
+.meili-text-warning {
+  color: $meili_warning_color;
 }
