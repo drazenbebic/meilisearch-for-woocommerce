@@ -9,7 +9,11 @@ services:
       - "80:80"
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./wp-app:/var/www/html
+      - type: bind
+        source: ./wp-app
+        target: /var/www/html
+        consistency: cached
+      - ./wp-app/wp-content/plugins:/var/www/html/wp-content/plugins
     environment:
       WORDPRESS_DB_HOST: database
       WORDPRESS_DB_NAME: "${DB_NAME}"
@@ -17,8 +21,9 @@ services:
       WORDPRESS_DB_PASSWORD: "${DB_ROOT_PASSWORD}"
     depends_on:
       - database
-    links:
-      - database
+      - meilisearch
+    networks:
+      - meili
 
   meilisearch:
     container_name: meilisearch
@@ -27,13 +32,17 @@ services:
     ports:
       - "7700:7700"
     environment:
-      MEILI_MASTER_KEY: "${MEILI_MASTER_KEY}"
-      MEILI_ENV: development
+      - http_proxy
+      - https_proxy
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+      - MEILI_ENV=${MEILI_ENV}
+    volumes:
+      - ./meili_data:/data.ms
     networks:
-      - meilisearch
+      - meili
 
-  wp-cli:
-    container_name: wp-cli
+  wp_cli:
+    container_name: wp_cli
     image: wordpress:cli
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
@@ -46,6 +55,8 @@ services:
     depends_on:
       - database
       - wordpress
+    networks:
+      - meili
 
   database:
     container_name: database
@@ -54,7 +65,7 @@ services:
     ports:
       - "3306:3306"
     command: [
-      '--default_authentication_plugin=mysql_native_password',
+      '--authentication_policy=mysql_native_password',
       '--character-set-server=utf8mb4',
       '--collation-server=utf8mb4_unicode_ci'
     ]
@@ -64,9 +75,11 @@ services:
     environment:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    networks:
+      - meili
 
 networks:
-  meilisearch:
+  meili:
     driver: bridge
 
 volumes:
