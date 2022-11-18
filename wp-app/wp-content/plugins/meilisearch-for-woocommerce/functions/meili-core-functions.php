@@ -235,7 +235,7 @@ function meili_get_utc_date_time( string $date_time_string ): DateTime {
  * @return array
  */
 function meili_map_product_fields( WC_Product $product ): array {
-	$fields       = meili_get_product_sync_fields();
+	$fields       = meili_get_product_index_fields();
 	$data         = array();
 	$product_data = $product->get_data();
 

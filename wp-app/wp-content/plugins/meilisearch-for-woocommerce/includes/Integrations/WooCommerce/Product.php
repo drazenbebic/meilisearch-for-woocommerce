@@ -32,9 +32,9 @@ class Product {
 	 * @return void
 	 */
 	public function on_save_product(
-		int     $product_id,
+		int $product_id,
 		WP_Post $post,
-		bool    $update
+		bool $update
 	) {
 		// Drafts should never be synchronized
 		if ( $post->post_status === 'auto-draft' ) {
@@ -42,12 +42,13 @@ class Product {
 		}
 
 		// Skip if this is an update and sync on update is off.
-		if ( $update && ! meili_product_sync_on_update() ) {
+		if ( $update && ! meili_index_update_on_update() ) {
 			return;
 		}
 
 		// Skip if this is a new product and sync on create is off.
-		if ( $post->post_status === 'publish' && ! $update && ! meili_product_sync_on_create() ) {
+		if ( $post->post_status === 'publish' && ! $update && ! meili_index_update_on_create(
+			) ) {
 			meili_var_dump_pre( $post->post_status );
 
 			return;

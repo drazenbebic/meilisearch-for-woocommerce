@@ -3,6 +3,23 @@
 use MeilisearchForWooCommerce\Setup;
 
 /**
+ * Evaluates a
+ *
+ * @param string $option_name
+ * @param mixed  $default
+ * @param mixed  $comparison_var
+ *
+ * @return bool
+ */
+function meili_eval_option(
+	string $option_name,
+	$default = false,
+	$comparison_var = 'yes'
+): bool {
+	return get_option( $option_name, $default ) === $comparison_var;
+}
+
+/**
  * Identifies whether a product should be skipped during the index update.
  *
  * @param int $product_id
@@ -48,7 +65,10 @@ function meili_get_meilisearch_instance_api_key(): ?string {
  * @return string
  */
 function meili_get_product_index_name(): string {
-	return get_option( 'meili_setting_index_products', Setup::PRODUCTS_INDEX_DEFAULT );
+	return get_option(
+		'meili_setting_index_products',
+		Setup::PRODUCTS_INDEX_DEFAULT
+	);
 }
 
 /**
@@ -57,35 +77,39 @@ function meili_get_product_index_name(): string {
  * @return bool
  */
 function meili_is_meilisearch_instance_configured(): bool {
-	return meili_get_meilisearch_instance_url() && meili_get_meilisearch_instance_api_key();
+	return meili_get_meilisearch_instance_url()
+	       && meili_get_meilisearch_instance_api_key();
 }
 
 /**
- * Returns a bool for whether a product should be synced when it's created.
+ * Returns a bool for whether a document should be updated when its product is
+ * created.
  *
  * @return bool
  */
-function meili_product_sync_on_create(): bool {
-	return get_option( 'meili_setting_product_sync_on_create', false ) === 'yes';
+function meili_index_update_on_create(): bool {
+	return meili_eval_option( 'meili_setting_index_update_on_create' );
 }
 
 /**
- * Returns a bool for whether a product should be synced when it's updated.
+ * Returns a bool for whether a document should be updated when its product is
+ * updated.
  *
  * @return bool
  */
-function meili_product_sync_on_update(): bool {
-	return get_option( 'meili_setting_product_sync_on_update', false ) === 'yes';
+function meili_index_update_on_update(): bool {
+	return meili_eval_option( 'meili_setting_index_update_on_update' );
 }
 
 /**
  *
- * Returns a bool for whether a product should be synced when it's deleted.
+ * Returns a bool for whether a document should be updated when its product is
+ * deleted.
  *
  * @return bool
  */
-function meili_product_sync_on_delete(): bool {
-	return get_option( 'meili_setting_product_sync_on_delete', false ) === 'yes';
+function meili_index_update_on_delete(): bool {
+	return meili_eval_option( 'meili_setting_index_update_on_delete' );
 }
 
 /**
@@ -93,7 +117,7 @@ function meili_product_sync_on_delete(): bool {
  *
  * @return array
  */
-function meili_get_product_sync_fields(): array {
+function meili_get_product_index_fields(): array {
 	return get_option( 'meili_setting_product_sync_fields', array(
 		array(
 			'type'  => 'property',
