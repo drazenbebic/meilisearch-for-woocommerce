@@ -4,7 +4,7 @@
  * Available variables
  *
  * @var array|WP_Error $document
- * @var int $product_id
+ * @var int            $product_id
  */
 
 ?>
@@ -18,14 +18,20 @@
 
 		<span class="description" style="margin-left: 0;">
 			<i class="meili-text-warning fa-solid fa-circle-exclamation"></i>
-			<?php esc_html_e( 'Product is not indexed', 'meilisearch-for-woocommerce' ); ?>
+			<?php esc_html_e(
+				'Product is not indexed',
+				'meilisearch-for-woocommerce'
+			); ?>
 		</span>
 
 	<?php else: ?>
 
 		<span class="description" style="margin-left: 0;">
 			<i class="meili-text-success fa-solid fa-circle-check"></i>
-			<?php esc_html_e( 'Product is indexed', 'meilisearch-for-woocommerce' ); ?>
+			<?php esc_html_e(
+				'Product is indexed',
+				'meilisearch-for-woocommerce'
+			); ?>
 		</span>
 
 	<?php endif; ?>
@@ -33,7 +39,6 @@
 </p>
 
 <p class="form-field">
-	<?php wp_nonce_field( 'meili_index_now' ); ?>
 	<?php submit_button(
 		esc_html__( 'Index now', 'meilisearch-for-woocommerce' ),
 		'primary',
